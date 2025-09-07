@@ -52,9 +52,11 @@
             font-weight: 700;
             font-size: 1.05rem;
             color: #2563eb;
+            white-space: nowrap;
         }
 
         .logo-img{height:42px;width:auto;border-radius:8px;object-fit:contain}
+        .logo-link{text-decoration:none;color:inherit}
 
         .nav-links {
             display: flex;
@@ -122,6 +124,14 @@
             background: #374151;
             transition: all 0.3s ease;
         }
+
+        /* Nav submenus (base) */
+        .has-submenu{position:relative}
+        .submenu{display:none;list-style:none;padding-left:1rem;margin:.25rem 0 0 0}
+        .submenu.open{display:flex;flex-direction:column}
+        .submenu a{padding:.5rem 0;font-size:.95rem}
+        .submenu-toggle{display:none;position:absolute;right:0;top:0;width:32px;height:100%;background:transparent;border:0;cursor:pointer}
+        .caret{display:none;margin-left:6px;transition:transform .2s ease}
 
         /* Hero Section with Carousel */
         .hero {
@@ -574,6 +584,13 @@
             .nav-links{display:none;position:absolute;top:56px;left:0;right:0;background:#ffffff;flex-direction:column;gap:.25rem;padding:.6rem 1rem;border-bottom:1px solid #e5e7eb;z-index:1001}
             .nav-links.open{display:flex}
             .nav-links a{padding:.75rem 0;font-size:1rem}
+            .has-submenu>.submenu-toggle{display:block}
+            .has-submenu>.submenu{display:none}
+            .has-submenu.open>.submenu{display:flex}
+            .has-submenu.open .caret{transform:rotate(90deg)}
+            .caret{display:inline-block}
+            .logo-img{height:36px}
+            .logo-text{font-size:.98rem}
             .mobile-toggle{display:flex}
             .cta-button{padding:6px 12px;font-size:.85rem}
 
@@ -627,16 +644,44 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="logo">
+            <a href="#home" class="logo logo-link" aria-label="Go to Home">
                 <img src="images/logo.png" alt="Highbury Junior School" class="logo-img">
-                <span>Highbury Junior School</span>
-                    </div>
+                <span class="logo-text">Highbury Junior School</span>
+                    </a>
             <ul class="nav-links" id="primaryNav">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#academics">Academics</a></li>
-                <li><a href="#sports">Sports</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li class="has-submenu">
+                    <a href="#academics">Academics <span class="caret">›</span></a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-controls="submenu-academics" title="Toggle Academics"></button>
+                    <ul class="submenu" id="submenu-academics">
+                        <li><a href="#curriculum">Curriculum</a></li>
+                        <li><a href="#teaching">Teaching Approach</a></li>
+                        <li><a href="#support">Support & Enrichment</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#sports">Sports <span class="caret">›</span></a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-controls="submenu-sports" title="Toggle Sports"></button>
+                    <ul class="submenu" id="submenu-sports">
+                        <li><a href="#swimming">Swimming</a></li>
+                        <li><a href="#tennis">Tennis</a></li>
+                        <li><a href="#table-tennis">Table Tennis</a></li>
+                        <li><a href="#netball">Netball</a></li>
+                        <li><a href="#soccer">Soccer</a></li>
+                        <li><a href="#hockey">Hockey</a></li>
+                        <li><a href="#chess">Chess</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#contact">Contact <span class="caret">›</span></a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-controls="submenu-contact" title="Toggle Contact"></button>
+                    <ul class="submenu" id="submenu-contact">
+                        <li><a href="#location">Location</a></li>
+                        <li><a href="#phone">Phone</a></li>
+                        <li><a href="#email">Email</a></li>
+                    </ul>
+                </li>
             </ul>
             <a href="#contact" class="cta-button">Apply Now</a>
             <div class="mobile-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="primaryNav" onclick="toggleMobileMenu()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleMobileMenu();}">
@@ -712,16 +757,16 @@
                 <img src="images/school6.jpeg" alt="Teacher guiding students at Highbury">
             </div>
 
-            <div class="acad-grid">
+            <div class="acad-grid" id="curriculum">
                 <div class="acad-card">
                     <h3>Curriculum</h3>
                     <p>We follow the ZIMSEC curriculum with continuous assessment and termly reporting. English and Mathematics are the core, supported by Science/General Knowledge, ICT, and Languages (English and Shona).</p>
                 </div>
-                <div class="acad-card">
+                <div class="acad-card" id="teaching">
                     <h3>Teaching Approach</h3>
                     <p>Differentiated instruction, guided reading, and practical activities. Weekly checks and targeted intervention ensure steady progress for every learner.</p>
                 </div>
-                <div class="acad-card">
+                <div class="acad-card" id="support">
                     <h3>Support & Enrichment</h3>
                     <p>Homework support, literacy circles, and enrichment tasks for high achievers. Character and leadership development are embedded through our Christian ethos.</p>
                 </div>
@@ -757,49 +802,49 @@
         <div class="info-container">
             <h2 class="info-title">Sports Offered</h2>
             <div class="sports-grid">
-                <div class="sport-card">
+                <div class="sport-card" id="swimming">
                     <img src="images/swimming.jpg" alt="Swimming practice at Highbury" loading="lazy" decoding="async">
                     <div class="sport-body">
                         <div class="sport-name">Swimming</div>
                         <p class="sport-text">Confidence in water safety and technique through structured sessions and friendly galas.</p>
                     </div>
                                 </div>
-                <div class="sport-card">
+                <div class="sport-card" id="tennis">
                     <img src="images/tennis.jpg" alt="Tennis coaching" loading="lazy" decoding="async">
                     <div class="sport-body">
                         <div class="sport-name">Tennis</div>
                         <p class="sport-text">Court skills, coordination, and sportsmanship; learners progress through drills to matches.</p>
                             </div>
                                     </div>
-                <div class="sport-card">
+                <div class="sport-card" id="table-tennis">
                     <img src="images/school7.jpeg" alt="Table tennis session" loading="lazy" decoding="async">
                     <div class="sport-body">
                         <div class="sport-name">Table Tennis</div>
                         <p class="sport-text">Fast reflexes, focus, and friendly competition in a fun indoor environment.</p>
                                     </div>
                                     </div>
-                <div class="sport-card">
+                <div class="sport-card" id="netball">
                     <img src="images/school5.jpeg" alt="Netball practice" loading="lazy" decoding="async">
                     <div class="sport-body">
                         <div class="sport-name">Netball</div>
                         <p class="sport-text">Team strategy, agility, and fitness with inter-house and inter-school fixtures.</p>
                                 </div>
                                 </div>
-                <div class="sport-card">
+                <div class="sport-card" id="soccer">
                     <img src="images/soccer.jpg" alt="Soccer on the field" loading="lazy" decoding="async">
                     <div class="sport-body">
                         <div class="sport-name">Soccer</div>
                         <p class="sport-text">Skill-building, teamwork, and healthy competition in a supportive setting.</p>
                                 </div>
                             </div>
-                <div class="sport-card">
+                <div class="sport-card" id="hockey">
                     <img src="images/hockey.jpg" alt="Hockey skills" loading="lazy" decoding="async">
                     <div class="sport-body">
                         <div class="sport-name">Hockey</div>
                         <p class="sport-text">Stick control, field awareness, and fair play for developing athletes.</p>
                         </div>
                                 </div>
-                <div class="sport-card">
+                <div class="sport-card" id="chess">
                     <img src="images/chess.jpg" alt="Chess club" loading="lazy" decoding="async">
                     <div class="sport-body">
                         <div class="sport-name">Chess</div>
@@ -906,17 +951,17 @@
             <p>Ready to give your child the best educational foundation? Contact us today to learn more about our programs or schedule a campus tour.</p>
 
                             <div class="contact-info">
-                <div class="contact-item">
+                <div class="contact-item" id="location">
                     <div class="contact-icon">📍</div>
                     <h3>Location</h3>
                     <p>No. 2658 Silverbow, Rusape<br>(1.5 km from Rusape CBD)</p>
                             </div>
-                <div class="contact-item">
+                <div class="contact-item" id="phone">
                     <div class="contact-icon">📞</div>
                     <h3>Phone</h3>
                     <p>+2638677004401</p>
                         </div>
-                <div class="contact-item">
+                <div class="contact-item" id="email">
                     <div class="contact-icon">✉️</div>
                     <h3>Email</h3>
                     <p>info@highburyjunior.ac.zw</p>
@@ -1010,6 +1055,15 @@
                         block: 'start'
                     });
                 }
+                // Close mobile menu and any open submenus after navigation on small screens
+                const navLinks = document.getElementById('primaryNav');
+                const toggle = document.querySelector('.mobile-toggle');
+                if (window.innerWidth <= 768 && navLinks.classList.contains('open')) {
+                    navLinks.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    document.querySelectorAll('.has-submenu').forEach(item=>item.classList.remove('open'));
+                    document.querySelectorAll('.submenu-toggle').forEach(btn=>btn.setAttribute('aria-expanded','false'));
+                }
             });
         });
         
@@ -1022,6 +1076,17 @@
             toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         }
         
+        // Mobile submenu toggles
+        document.addEventListener('click', function(e){
+            const toggleBtn = e.target.closest('.submenu-toggle');
+            if(toggleBtn){
+                const parentItem = toggleBtn.closest('.has-submenu');
+                const isOpen = parentItem.classList.toggle('open');
+                toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                e.stopPropagation();
+            }
+        });
+
         // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
